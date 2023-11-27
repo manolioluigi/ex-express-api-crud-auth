@@ -23,6 +23,8 @@ model Post {
   category   Category? @relation(fields: [categoryId], references: [id])
   tagId      Int?
   tag        Tag?      @relation(fields: [tagId], references: [id])
+  userId     Int?
+  User       User?     @relation(fields: [userId], references: [id])
 }
 
 model Category {
@@ -37,4 +39,12 @@ model Tag {
   name  String
   slug  String @unique
   posts Post[]
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String
+  email    String @unique
+  password String
+  posts    Post[]
 }

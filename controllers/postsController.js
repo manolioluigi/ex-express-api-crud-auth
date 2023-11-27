@@ -8,8 +8,10 @@ const slugify = require('slugify');
 async function createPost(req, res) {
     try {
 
+        //console.log(req.body);
         const { title, image, content, published, categoryId, tagId } = req.body;
         const slug = await generateUniqueSlug(title);
+        const userId = req.userId;
 
         const newPost = await prisma.post.create({
             data: {
@@ -19,7 +21,8 @@ async function createPost(req, res) {
                 content,
                 published,
                 categoryId,
-                tagId
+                tagId,
+                userId
             },
         });
 
