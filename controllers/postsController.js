@@ -71,7 +71,9 @@ async function getAllPosts(req, res) {
 async function updatePost(req, res) {
     try {
         const { slug } = req.params;
-        const { title, image, content, published } = req.body;
+        const { title, image, content, published, categoryId, tagId } = req.body;
+
+        //console.log('Dati ricevuti:', req.body);
 
         const updatedPost = await prisma.post.update({
             where: {
@@ -83,8 +85,12 @@ async function updatePost(req, res) {
                 image,
                 content,
                 published,
+                categoryId,
+                tagId,
             },
         });
+
+        //console.log('Post aggiornato:', updatedPost);
 
         res.status(200).json({ success: true, data: updatedPost });
     } catch (error) {
